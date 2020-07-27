@@ -1,0 +1,14 @@
+13:05:20 **** Incremental Build of configuration Debug for project application_proj ****
+make all 
+'Building file: ../src/PmodESP32.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/PmodESP32.o" -I../../application_proj_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/PmodESP32.d" -MT"src/PmodESP32.o" -o "src/PmodESP32.o" "../src/PmodESP32.c"
+In file included from ../src/PmodESP32.c:1:
+../src/PmodESP32.h:18:10: fatal error: xil_types.h: No such file or directory
+ #include "xil_types.h"
+          ^~~~~~~~~~~~~
+compilation terminated.
+make: *** [src/subdir.mk:53: src/PmodESP32.o] Error 1
+
+13:05:22 Build Finished (took 1s.926ms)
+
