@@ -86,7 +86,7 @@ void DemoRun() {
 			while (0 == ESP32_Send(&myESP32, &recv_buffer, 1));
 		}
 
-		ESP32_SendBuffer(&myESP32, &sendBuffer, 16);
+		ESP32_SendBuffer(&myESP32, &SendBuffer, 16);
 
 	}
 }
