@@ -54,30 +54,41 @@ void DemoInitialize () {
 
 void DemoRun() {
 	u8 recv_buffer;
-//	u16 * send_buffer = 0b0100000101010100; // sending buffer 0100000101010100
+	u16 send_buffer = 0b0100000101010100; // sending buffer 0100000101010100
+	#define TEST_BUFFER_SIZE 16 // needs to be 16 in order to fill in one instruction (FIFO)
+	u8 sendBuffer[TEST_BUFFER_SIZE];
 	u32 num_received;
 
 	xil_printf("Entering Pmod ESP32 Command Line Interface!\r\n");
 	xil_printf("Enter AT commands to interact with the ESP32\r\n");
-//
-//
-//
-//	while (1) {
-//		// TODO: add exit functionality (ctrl-Z?)
-//		num_received = ESP32_Recv(&myESP32, &recv_buffer, 1);
-//		if (num_received > 0) {
-//			xil_printf("%c", recv_buffer);
-//		}
-//
-//		num_received = HostUart_Recv(&myHostUart, &recv_buffer, 1);
-//		if (num_received > 0) {
-//			xil_printf("%c", recv_buffer);
-//			while (0 == ESP32_Send(&myESP32, &recv_buffer, 1));
-//		}
-//
-//		ESP32_SendBuffer(&myESP32, 0b0100000101010100, 16);
-//
-//	}
+
+
+	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {	
+		
+		u8 masked_buffer = 1 << Index ;
+		u8 masked_n = send_buffer & masked_buffer;
+		u8 thebit = masked_n >> Index;
+		SendBuffer[Index] = thebit;
+		//RecvBuffer[Index] = 0;
+	}
+
+
+	while (1) {
+		// TODO: add exit functionality (ctrl-Z?)
+		num_received = ESP32_Recv(&myESP32, &recv_buffer, 1);
+		if (num_received > 0) {
+			xil_printf("%c", recv_buffer);
+		}
+
+		num_received = HostUart_Recv(&myHostUart, &recv_buffer, 1);
+		if (num_received > 0) {
+			xil_printf("%c", recv_buffer);
+			while (0 == ESP32_Send(&myESP32, &recv_buffer, 1));
+		}
+
+		ESP32_SendBuffer(&myESP32, &SendBuffer, 16);
+
+	}
 }
 
 void DemoCleanup() {
